@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="折线图," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡甲俊的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="随机生成将数据，并将其以折线图的方式显示出来 绘制坐标系">
+<meta name="keywords" content="折线图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用canvas绘制 折线图">
+<meta property="og:url" content="https://hudadahexiaolili.github.io/2016/04/01/canvas绘制折线图/index.html">
+<meta property="og:site_name" content="胡甲俊的个人博客">
+<meta property="og:description" content="随机生成将数据，并将其以折线图的方式显示出来 绘制坐标系">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/HudadaHexiaolili/Blogphotos/blob/master/images/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%9B%BE.png?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E5%9F%BA%E6%9C%AC%E5%9D%90%E6%A0%87%E7%B3%BB.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E5%8D%95%E7%82%B9%E7%BB%98%E5%88%B6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E5%A4%9A%E9%9A%8F%E6%9C%BA%E7%82%B9%E7%BB%98%E5%88%B6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E8%AE%A1%E7%AE%97%E6%9C%80%E5%80%BC%E6%B1%82%E6%AF%94%E4%BE%8B.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E8%AE%A1%E7%AE%97%E7%BB%98%E5%88%B6%E5%9D%90%E6%A0%87.png">
+<meta property="og:image" content="https://github.com/HudadaHexiaolili/Blogphotos/blob/master/images/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%9B%BE.png?raw=true">
+<meta property="og:updated_time" content="2017-08-05T13:08:24.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用canvas绘制 折线图">
+<meta name="twitter:description" content="随机生成将数据，并将其以折线图的方式显示出来 绘制坐标系">
+<meta name="twitter:image" content="https://github.com/HudadaHexiaolili/Blogphotos/blob/master/images/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%9B%BE.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hudadahexiaolili.github.io/2016/04/01/canvas绘制折线图/"/>
+
+
+
+
+
+  <title>使用canvas绘制 折线图 | 胡甲俊的个人博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?485ea28294cf0341fb8af0a6c9e5ebed";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/HudadaHexiaolili">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+    </a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">胡甲俊的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hudadahexiaolili.github.io/2016/04/01/canvas绘制折线图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hudada">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="胡甲俊的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用canvas绘制 折线图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-01T00:00:00+08:00">
+                2016-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/canvas系列/" itemprop="url" rel="index">
+                    <span itemprop="name">canvas系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/04/01/canvas绘制折线图/" class="leancloud_visitors" data-flag-title="使用canvas绘制 折线图">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,210
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>随机生成将数据，并将其以折线图的方式显示出来
+</code></pre><h2 id="绘制坐标系"><a href="#绘制坐标系" class="headerlink" title="绘制坐标系"></a>绘制坐标系</h2><p><img src="https://github.com/HudadaHexiaolili/Blogphotos/blob/master/images/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%9B%BE.png?raw=true" alt="最终效果图" title="最终效果图"><br><a id="more"></a></p>
+<h3 id="基本绘制"><a href="#基本绘制" class="headerlink" title="基本绘制:"></a>基本绘制:</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//具体实现代码</span></div><div class="line">    <span class="comment">// ===&gt; 步骤 1. </span></div><div class="line">    <span class="comment">// 创建canvas标签，该标签用来展示图像</span></div><div class="line">    <span class="keyword">var</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</div><div class="line">    <span class="comment">//canvas的宽高不要使用 CSS 来设置，会有拉伸问题，应该直接使用属性设置</span></div><div class="line">    canvas.width = <span class="number">600</span>;</div><div class="line">    canvas.height = <span class="number">400</span>;</div><div class="line">    canvas.style.border = <span class="string">'1px dashed red'</span>;</div><div class="line">    <span class="built_in">document</span>.body.appendChild(canvas);</div><div class="line">    <span class="comment">//获得绘图工具, 该工具是 CanvasRenderingContext2D 类型的对象.</span></div><div class="line">    <span class="keyword">var</span> context = canvas.getContext(<span class="string">'2d'</span>);</div><div class="line">    </div><div class="line">    <span class="comment">// 不要硬编码</span></div><div class="line">    <span class="comment">// 考虑是应该有什么参量?</span></div><div class="line">  </div><div class="line">    <span class="comment">// 常规意义上是给 上下左右边距</span></div><div class="line">    <span class="keyword">var</span> paddingleft = <span class="number">50</span>, paddingright = <span class="number">50</span>, paddingtop = <span class="number">50</span>, paddingbottom = <span class="number">50</span>;</div><div class="line">    <span class="comment">//箭头的宽度、高度</span></div><div class="line">    <span class="keyword">var</span> arrowWidth = <span class="number">10</span>, arrowHeight = <span class="number">20</span>;</div><div class="line"></div><div class="line">    <span class="comment">//原点坐标</span></div><div class="line">    <span class="keyword">var</span> ox = paddingleft,</div><div class="line">        oy = canvas.height - paddingbottom;</div><div class="line"></div><div class="line">    <span class="comment">// 绘制坐标轴</span></div><div class="line">        <span class="comment">//设置开始绘图的位置为 Y轴顶点处</span></div><div class="line">        <span class="comment">//开始沿Y轴负方向、原点、X轴正方向依次绘制直线</span></div><div class="line">    context.moveTo( ox, paddingtop );</div><div class="line">    context.lineTo( ox, oy );</div><div class="line">    context.lineTo( canvas.width - paddingright, oy );</div><div class="line">    context.stroke();<span class="comment">//描边绘制</span></div><div class="line"></div><div class="line">    <span class="comment">// 绘制箭头</span></div><div class="line">        <span class="comment">//开启新的绘制</span></div><div class="line">    context.beginPath();</div><div class="line">        <span class="comment">//绘制Y轴箭头</span></div><div class="line">    context.moveTo( ox - arrowWidth / <span class="number">2</span>, paddingtop + arrowHeight );</div><div class="line">    context.lineTo( ox, paddingtop );</div><div class="line">    context.lineTo( ox + arrowWidth / <span class="number">2</span>, paddingtop + arrowHeight );</div><div class="line">    context.lineTo( ox, paddingtop + arrowHeight * <span class="number">2</span> / <span class="number">3</span> );</div><div class="line">        <span class="comment">//填充绘制</span></div><div class="line">    context.fill();</div><div class="line"></div><div class="line">        <span class="comment">//开启新的绘制</span></div><div class="line">    context.beginPath();</div><div class="line">        <span class="comment">//绘制X轴箭头</span></div><div class="line">    context.moveTo( canvas.width - paddingright - arrowHeight, oy - arrowWidth / <span class="number">2</span> );</div><div class="line">    context.lineTo( canvas.width - paddingright, oy );</div><div class="line">    context.lineTo( canvas.width - paddingright - arrowHeight, oy + arrowWidth / <span class="number">2</span> );</div><div class="line">    context.lineTo( canvas.width - paddingright - arrowHeight * <span class="number">2</span> / <span class="number">3</span>, oy );</div><div class="line">        <span class="comment">//填充绘制</span></div><div class="line">    context.fill();</div></pre></td></tr></table></figure>
+<h3 id="效果示意图"><a href="#效果示意图" class="headerlink" title="效果示意图"></a>效果示意图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt; code &lt;/script&gt;</div><div class="line">将上述代码替换 code .在将&lt;script&gt;加入到&lt;body&gt;后.浏览器效果如下图:</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E5%9F%BA%E6%9C%AC%E5%9D%90%E6%A0%87%E7%B3%BB.png" alt="坐标系基本绘制" title="坐标系基本绘制"></p>
+<h2 id="绘制坐标系上的单点-理解过渡-可忽略"><a href="#绘制坐标系上的单点-理解过渡-可忽略" class="headerlink" title="绘制坐标系上的单点( 理解过渡 可忽略)"></a>绘制坐标系上的单点( 理解过渡 可忽略)</h2><p><code>绘制完坐标系，尝试在其基础上绘制单点</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//举个例子，绘制点(100,100)</span></div><div class="line"></div><div class="line"><span class="comment">// 步骤：</span></div><div class="line"><span class="comment">// 1.先计算 对应的坐标 在 坐标系 中的实际坐标</span></div><div class="line"><span class="comment">// 2.拿到原点坐标</span></div><div class="line"><span class="keyword">var</span> ox = paddingleft,</div><div class="line">      oy = canvas.height - paddingbottom;</div><div class="line"><span class="comment">// 3.实际坐标</span></div><div class="line"><span class="keyword">var</span> x = ox + <span class="number">100</span>,</div><div class="line">      y = oy - <span class="number">100</span>;</div><div class="line"><span class="comment">// 4.绘制点</span></div><div class="line"><span class="comment">// 注意: 绘制的时候起始点从坐标点向上,向左移动 2 个像素</span></div><div class="line">  context.beginPath();</div><div class="line">  context.moveTo( x - <span class="number">2</span>, y - <span class="number">2</span> );</div><div class="line">  context.lineTo( x + <span class="number">2</span>, y - <span class="number">2</span> );</div><div class="line">  context.lineTo( x + <span class="number">2</span>, y + <span class="number">2</span> );</div><div class="line">  context.lineTo( x - <span class="number">2</span>, y + <span class="number">2</span> );</div><div class="line">  context.closePath();</div><div class="line">  <span class="comment">//秒变颜色</span></div><div class="line">  context.strokeStyle = <span class="string">'blue'</span>;</div><div class="line">  <span class="comment">//描边绘制</span></div><div class="line">  context.stroke();</div></pre></td></tr></table></figure></p>
+<h3 id="单点绘制效果图"><a href="#单点绘制效果图" class="headerlink" title="单点绘制效果图:"></a>单点绘制效果图:</h3><p><img src="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E5%8D%95%E7%82%B9%E7%BB%98%E5%88%B6.png" alt="坐标系单点绘制" title="坐标系单点绘制"></p>
+<h2 id="多点绘制-数字随机生成"><a href="#多点绘制-数字随机生成" class="headerlink" title="多点绘制(数字随机生成)"></a>多点绘制(<strong>数字随机生成</strong>)</h2><h3 id="随机生成函数"><a href="#随机生成函数" class="headerlink" title="随机生成函数"></a>随机生成函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ===&gt; 步骤 2. 准备随机函数</span></div><div class="line"><span class="keyword">var</span> random =( <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//传入参数为两个，表示生成的数的个数在 min 和 max 之间取值</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">randomWithTwoParam</span>(<span class="params"> min , max </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.floor( ( max - min ) * <span class="built_in">Math</span>.random() ) + min;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 传入的参数为 1 个,表示生成的数的个数在 0 -max 之间取值</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">randomWithOneParam</span>(<span class="params"> max </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> randomWithTwoParam( <span class="number">0</span>, max );</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">random</span> (<span class="params"> min, max </span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> ( min === <span class="literal">undefined</span> ) &#123;<span class="comment">//没有传参</span></div><div class="line">            <span class="keyword">return</span> <span class="built_in">Math</span>.random();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ( max === <span class="literal">undefined</span> ) &#123;<span class="comment">//只传了min</span></div><div class="line">            <span class="keyword">return</span> randomWithOneParam( min );</div><div class="line">        &#125; <span class="keyword">else</span> &#123;<span class="comment">//传了min 和 max 俩参数</span></div><div class="line">            <span class="keyword">return</span> randomWithTwoParam( min, max );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> random;</div><div class="line">&#125;)();</div><div class="line"><span class="comment">//随机生成几个点(范围在传入的值之间，这里传入了 5 和 20,表示个数在5-20之间)</span></div><div class="line"><span class="keyword">var</span> count = random( <span class="number">5</span>, <span class="number">20</span> );</div><div class="line"><span class="keyword">var</span> points = [];</div><div class="line"><span class="keyword">var</span> x;</div><div class="line"><span class="keyword">while</span> ( points.length &lt; count ) &#123;</div><div class="line">    <span class="comment">//注意 x 不允许重复</span></div><div class="line">    x = random( <span class="number">1000</span> );<span class="comment">//生成一个0-1000的随机数X</span></div><div class="line">    <span class="keyword">if</span>( points.every( <span class="function"><span class="params">pt</span> =&gt;</span> pt.x != x) ) &#123;</div><div class="line">        <span class="comment">//没有这个 x</span></div><div class="line">        points.push(&#123;</div><div class="line">            <span class="attr">x</span>: x,</div><div class="line">            <span class="attr">y</span>: random( <span class="number">1000</span> )<span class="comment">//生成一个0-1000的随机数Y</span></div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>console.table( points ); 便会得到下面的图:</code></p>
+<p><img src="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E5%A4%9A%E9%9A%8F%E6%9C%BA%E7%82%B9%E7%BB%98%E5%88%B6.png" alt="多点随机绘制" title="多点随机绘制"></p>
+<h3 id="计算最值求比例"><a href="#计算最值求比例" class="headerlink" title="计算最值求比例"></a>计算最值求比例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ===&gt; 步骤 3.求 X 和 Y 的最大值</span></div><div class="line"><span class="keyword">var</span> maxX = <span class="built_in">Math</span>.max.apply( <span class="literal">null</span>, points.map( <span class="function"><span class="params">pt</span> =&gt;</span> pt.x ) ),</div><div class="line">    maxY = <span class="built_in">Math</span>.max.apply( <span class="literal">null</span>, points.map( <span class="function"><span class="params">pt</span> =&gt;</span> pt.y ) );</div><div class="line"></div><div class="line"><span class="comment">// 对数组按照 x 的大小排序</span></div><div class="line">points.sort( <span class="function">(<span class="params"> a, b </span>) =&gt;</span> a.x - b.x );</div><div class="line"></div><div class="line"><span class="comment">// 计算比例</span></div><div class="line"><span class="comment">// 思考: 我们的目的是什么?</span></div><div class="line"><span class="comment">// 我们的目的是计算在画布中的绘制坐标</span></div><div class="line"><span class="comment">// 绘制坐标 : 随机坐标 == 坐标系的宽高 : 最大的xy</span></div><div class="line"><span class="comment">// 比例 ( rate ) = 坐标系的宽高 / 最大值</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> rateX = ( canvas.width - paddingLeft - paddingRight ) / maxX,</div><div class="line">    rateY = ( canvas.height - paddingTop - paddingBottom ) / maxY;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.table( points );</div><div class="line"><span class="built_in">console</span>.log( <span class="string">'maxX = '</span>  + maxX + <span class="string">', maxY = '</span> + maxY );</div><div class="line"><span class="comment">//在控制台输出得到下面的图</span></div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E8%AE%A1%E7%AE%97%E6%9C%80%E5%80%BC%E6%B1%82%E6%AF%94%E4%BE%8B.png" alt="计算比例求最值" title="计算比例求最值"></p>
+<h3 id="计算绘制坐标"><a href="#计算绘制坐标" class="headerlink" title="计算绘制坐标"></a>计算绘制坐标</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ===&gt; 步骤 4.计算要绘制的坐标</span></div><div class="line"><span class="keyword">var</span> newpoints = points.map( <span class="function"><span class="params">pt</span> =&gt;</span> (&#123;</div><div class="line">    <span class="attr">x</span>: pt.x,</div><div class="line">    <span class="attr">y</span>: pt.y,</div><div class="line">    <span class="attr">drawX</span>: pt.x * rateX,</div><div class="line">    <span class="attr">drawY</span>: pt.y * rateY </div><div class="line">  &#125;) );</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.table( newpoints );</div><div class="line"><span class="comment">//输出得到下图所示：</span></div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/HudadaHexiaolili/Blogphotos/55e6785ad09c2dce5d62be382babcd4591983da3/images/%E8%AE%A1%E7%AE%97%E7%BB%98%E5%88%B6%E5%9D%90%E6%A0%87.png" alt="计算绘制坐标" title="计算绘制坐标"></p>
+<h3 id="连线绘制点"><a href="#连线绘制点" class="headerlink" title="连线绘制点"></a>连线绘制点</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ===&gt; 步骤 5.连线绘制点</span></div><div class="line">context.beginPath();</div><div class="line">context.fillStyle = <span class="string">'red'</span>;</div><div class="line"></div><div class="line">newpoints.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">newpt</span>) </span>&#123;</div><div class="line">    <span class="comment">//让 随机点 在坐标范围内显示</span></div><div class="line">    <span class="keyword">var</span> x = ox + newpt.drawX,</div><div class="line">        y = oy - newpt.drawY;</div><div class="line">    <span class="comment">//生成多个 随机点</span></div><div class="line">    context.moveTo(x - ptWidth / <span class="number">2</span>, y - ptWidth / <span class="number">2</span>);</div><div class="line">    context.lineTo(x + ptWidth / <span class="number">2</span>, y - ptWidth / <span class="number">2</span>);</div><div class="line">    context.lineTo(x + ptWidth / <span class="number">2</span>, y + ptWidth / <span class="number">2</span>);</div><div class="line">    context.lineTo(x - ptWidth / <span class="number">2</span>, y + ptWidth / <span class="number">2</span>);</div><div class="line">    context.closePath();</div><div class="line">&#125;);</div><div class="line"><span class="comment">//填充绘制</span></div><div class="line">context.fill();</div><div class="line"></div><div class="line"><span class="comment">// 连线</span></div><div class="line">context.beginPath();</div><div class="line">context.strokeStyle = <span class="string">'red'</span>;</div><div class="line"><span class="comment">//让折线拐角处不出现尖角</span></div><div class="line">context.lineJoin = <span class="string">'round'</span>;</div><div class="line">context.lineWidth = <span class="number">1</span>;</div><div class="line"></div><div class="line">newpoints.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">newpt</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> x = ox + newpt.drawX,</div><div class="line">        y = oy - newpt.drawY;</div><div class="line">    context.lineTo(x, y);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//描边连线</span></div><div class="line">context.stroke();</div></pre></td></tr></table></figure>
+<h3 id="最终效果图"><a href="#最终效果图" class="headerlink" title="最终效果图"></a>最终效果图</h3><p><code>代码整合: 将上述代码依次整合在一个script标签中,代码结束.</code></p>
+<p><img src="https://github.com/HudadaHexiaolili/Blogphotos/blob/master/images/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%9B%BE.png?raw=true" alt="最终效果图" title="最终效果图"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><figure class="highlight md"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">简单完成了，随机数生成折线图的功能，可样式不够美观，没有在折线处添加数据，还有很多不足的地方，以后会完善。</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+    <div>
+      
+        
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果 😊</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Hudada WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Hudada Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/折线图/" rel="tag"><i class="fa fa-tag"></i> 折线图</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/21/vue的ajax/" rel="next" title="Vue中的AJAX请求">
+                <i class="fa fa-chevron-left"></i> Vue中的AJAX请求
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/02/canvas绘制饼形图/" rel="prev" title="使用canvas绘制饼形图">
+                使用canvas绘制饼形图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk0MS82NTA2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/toux.gif"
+               alt="Hudada" />
+          <p class="site-author-name" itemprop="name">Hudada</p>
+           
+              <p class="site-description motion-element" itemprop="description">你若盛开，清风自来.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/HudadaHexiaolili" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="Mailto:17080052099@163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6336292842" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/3721e55ed1cb" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://user.qzone.qq.com/1712891142" target="_blank" title="QQ空间">
+                  
+                    <i class="fa fa-fw fa-anchor"></i>
+                  
+                    
+                      QQ空间
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              推荐阅读
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ganjs.github.io/FrontEndGuide/" title="前端导航" target="_blank">前端导航</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="" title="love" target="_blank">love</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制坐标系"><span class="nav-number">1.</span> <span class="nav-text">绘制坐标系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本绘制"><span class="nav-number">1.1.</span> <span class="nav-text">基本绘制:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果示意图"><span class="nav-number">1.2.</span> <span class="nav-text">效果示意图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制坐标系上的单点-理解过渡-可忽略"><span class="nav-number">2.</span> <span class="nav-text">绘制坐标系上的单点( 理解过渡 可忽略)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单点绘制效果图"><span class="nav-number">2.1.</span> <span class="nav-text">单点绘制效果图:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多点绘制-数字随机生成"><span class="nav-number">3.</span> <span class="nav-text">多点绘制(数字随机生成)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#随机生成函数"><span class="nav-number">3.1.</span> <span class="nav-text">随机生成函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算最值求比例"><span class="nav-number">3.2.</span> <span class="nav-text">计算最值求比例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算绘制坐标"><span class="nav-number">3.3.</span> <span class="nav-text">计算绘制坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连线绘制点"><span class="nav-number">3.4.</span> <span class="nav-text">连线绘制点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图"><span class="nav-number">3.5.</span> <span class="nav-text">最终效果图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hudada</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("tR3OTB6ut8hQFdCrOiC5XBeb-gzGzoHsz", "wlsk1n4PmvzGv5ScnfQoONJH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
